@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
-
+const a = console.log("working");
 mongoose.connect(secure.MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
