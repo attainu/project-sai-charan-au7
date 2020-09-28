@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { sendEmail } from "../utils/index.js";
 
 export const signup = async (req, res) => {
+  console.log(req.body);
   const { fullname, username, email, password } = req.body;
   if (!fullname || !username || !email || !password) {
     return res.status(422).json({
@@ -106,7 +107,7 @@ export const signin = async (req, res) => {
               },
             });
           } else {
-            return res.json({
+            return res.status(422).json({
               error:
                 "The username and password you entered did not match our records. Please double-check and try again.2",
             });
@@ -356,6 +357,7 @@ async function sendVerificationEmail(user, req, res) {
 
     res.status(200).json({
       message: "A verification email has been sent to " + user.email + ".",
+      email: user.email,
     });
   } catch (error) {
     res.status(500).json({ message: "failed to send email" });

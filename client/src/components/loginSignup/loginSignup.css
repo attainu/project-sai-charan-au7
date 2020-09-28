@@ -87,6 +87,12 @@ input {
   margin: 8px 0;
   width: 100%;
 }
+.inputclass {
+  border: none;
+  padding: 5px 8px;
+  margin: 2px 0;
+  width: 100%;
+}
 
 .container {
   background-color: #fff;

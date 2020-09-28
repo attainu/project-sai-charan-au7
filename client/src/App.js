@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
-import loginSignup from "./components/loginSignup/loginSignup.js";
+import LoginSignup from "./components/loginSignup/LoignSignup";
 
 function App() {
   return (
     <div className="App">
-      <h1>jnfdni</h1>
+      <LoginSignup />
     </div>
   );
 }
