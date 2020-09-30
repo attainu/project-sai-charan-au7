@@ -2,8 +2,10 @@ import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
+import { Link } from "react-router-dom";
 
-import AuthService from "../../services/authService";
+import AuthService from "../../Services/authService";
+import { useHistory } from "react-router-dom";
 
 const required = (value) => {
   if (!value) {
@@ -46,6 +48,7 @@ const vpassword = (value) => {
 function Login(props) {
   const form = useRef();
   const checkBtn = useRef();
+  const history = useHistory();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -72,7 +75,7 @@ function Login(props) {
     const result = await AuthService.login(username, password);
 
     if (checkBtn.current.context._errors.length === 0 && result.user) {
-      props.history.push("/profile");
+      history.push("/feed");
       window.location.reload();
     } else {
       setLoading(false);
@@ -84,15 +87,15 @@ function Login(props) {
       <Form onSubmit={handleLogin} ref={form}>
         <h1>Sign in</h1>
         <div class="social-container">
-          <a href="#" class="social">
+          <Link to={"#"} className="social">
             <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" class="social">
+          </Link>
+          <Link to={"#"} className="social">
             <i class="fab fa-google-plus-g"></i>
-          </a>
-          <a href="#" class="social">
+          </Link>
+          <Link to={"#"} className="social">
             <i class="fab fa-linkedin-in"></i>
-          </a>
+          </Link>
         </div>
         <span>or use your account</span>
         <div className="inputclass">
@@ -115,7 +118,7 @@ function Login(props) {
             validations={[required, vpassword]}
           />
         </div>
-        <a href="#">Forgot your password?</a>
+        <Link to={"#"}>Forgot your password?</Link>
         <div className="form-group">
           <button className="btn btn-primary btn-block" disabled={loading}>
             {loading && (

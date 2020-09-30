@@ -3,8 +3,9 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
+import { Link } from "react-router-dom";
 
-import AuthService from "../../services/authService";
+import AuthService from "../../Services/authService";
 
 const required = (value) => {
   if (!value) {
@@ -103,15 +104,15 @@ function Signup(props) {
       <Form onSubmit={handleRegister} ref={form}>
         <h1>Create Account</h1>
         <div class="social-container">
-          <a href="#" class="social">
+          <Link to={"#"} className="social">
             <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" class="social">
+          </Link>
+          <Link to={"#"} className="social">
             <i class="fab fa-google-plus-g"></i>
-          </a>
-          <a href="#" class="social">
+          </Link>
+          <Link to={"#"} className="social">
             <i class="fab fa-linkedin-in"></i>
-          </a>
+          </Link>
         </div>
         <span>or use your email for registration</span>
         <div className="inputclass">

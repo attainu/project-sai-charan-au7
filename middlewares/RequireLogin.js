@@ -5,12 +5,14 @@ import User from "../models/user.js";
 
 export default (req, res, next) => {
   const { authorization } = req.headers;
+
   if (!authorization) {
     return res
       .status(401)
       .json({ error: "you must be logged in to access this page" });
   }
   const token = authorization.replace("Bearer ", "");
+  console.log(token);
   verify(token, JWT_KEY, (err, payload) => {
     if (err) {
       return res
