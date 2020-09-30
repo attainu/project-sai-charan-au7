@@ -73,10 +73,11 @@ function Login(props) {
 
     form.current.validateAll();
     const result = await AuthService.login(username, password);
+    const user = await AuthService.getCurrentUser();
 
-    if (checkBtn.current.context._errors.length === 0 && result.user) {
+    if (checkBtn.current.context._errors.length === 0 && result.user && user) {
       history.push("/feed");
-      window.location.reload();
+      window.location.replace("/feed");
     } else {
       setLoading(false);
       setMessage(result.data.error);

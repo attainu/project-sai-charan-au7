@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Header.css";
 import SearchIcon from "@material-ui/icons/Search";
 import HomeIcon from "@material-ui/icons/Home";
 import { Avatar, IconButton } from "@material-ui/core";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import AuthService from "../../Services/authService";
+import { Link, Redirect, useHistory } from "react-router-dom";
 
 function Header() {
+  //const [user, setUser] = useState();
+  const user = AuthService.getCurrentUser();
+  const history = useHistory();
+  const handlelogout = () => {
+    AuthService.logout();
+    history.push("/joinus");
+    window.location.reload();
+  };
   return (
     <div className="header">
       <div className="header__left">
@@ -13,26 +23,36 @@ function Header() {
           src="https://i.pinimg.com/originals/0a/93/cc/0a93cc6ea46e59c7d83bc84fb002b92c.jpg"
           alt=""
         />*/}
-        <h3>Logo</h3>
+        <Link to="/">
+          <h3>Logo</h3>
+        </Link>
       </div>
-      <div className="header__center">
-        <div className="header__option header__option--action">
-          <HomeIcon fontSize="large" />
+      {user ? (
+        <>
+          <div className="header__center">
+            <div className="header__option header__option--action">
+              <HomeIcon fontSize="large" />
+            </div>
+            <div className="header__input">
+              <SearchIcon />
+              <input placeholder="Search" type="text" />
+            </div>
+          </div>
+          <div className="header__right">
+            <div className="header__info">
+              <Avatar src="" />
+              <h4>sai</h4>
+            </div>
+            <IconButton onClick={handlelogout}>
+              <ExitToAppIcon />
+            </IconButton>
+          </div>
+        </>
+      ) : (
+        <div className="header__right">
+          <Link to="/joinus">Loign / Signup</Link>
         </div>
-        <div className="header__input">
-          <SearchIcon />
-          <input placeholder="Search" type="text" />
-        </div>
-      </div>
-      <div className="header__right">
-        <div className="header__info">
-          <Avatar src="" />
-          <h4>sai</h4>
-        </div>
-        <IconButton>
-          <ExitToAppIcon />
-        </IconButton>
-      </div>
+      )}
     </div>
   );
 }

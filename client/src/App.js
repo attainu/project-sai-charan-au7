@@ -1,29 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Components/header/Header";
 import LoignSignup from "./Components/loginSignup/LoginSignup";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import "./styles.css";
 import Explore from "./Components/explore/Explore";
-function loggedIn() {
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  if (user && user.token) {
-    return user;
-  } else {
-    return {};
-  }
-}
-
-function requireAuth(nextState, replace) {
-  console.log(loggedIn());
-  if (!loggedIn()) {
-    replace({
-      pathname: "/joinus",
-    });
-  }
-}
+import AuthService from "./Services/authService";
 
 export default function App() {
+  const user = AuthService.getCurrentUser();
   return (
     <div className="App">
       <Router>
@@ -31,7 +20,14 @@ export default function App() {
 
         <Switch>
           <Route exact path="/joinus" component={LoignSignup} />
-          <Route exact path="/feed" component={Explore} onEnter={requireAuth} />
+          {user ? (
+            <>
+              <Route exact path="/feed" component={Explore} />
+              <Route path="/feed" component={Explore} />
+            </>
+          ) : (
+            <Redirect to="/joinus" />
+          )}
         </Switch>
       </Router>
     </div>

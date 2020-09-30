@@ -58,10 +58,6 @@ function Feed({ profilePic, image, username, timestamp, message }) {
           <NearMeIcon />
           <p>Share</p>
         </div>
-        <div className="feed__option">
-          <AccountCircleIcon />
-          <ExpandMoreOutlined />
-        </div>
       </div>
     </div>
   );
