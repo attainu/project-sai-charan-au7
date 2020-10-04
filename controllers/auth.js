@@ -1,4 +1,6 @@
 import User from "../models/user.js";
+
+import Token from "../models/token.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { sendEmail } from "../utils/index.js";
@@ -176,15 +178,14 @@ export const signin = async (req, res) => {
 export const verify = async (req, res) => {
   if (!req.params.token)
     return res
-      .status(400)
+      .status(200)
       .json({ error: "We were unable to find a user for this token." });
 
   try {
     // Find a matching token
     const token = await Token.findOne({ token: req.params.token });
-
     if (!token)
-      return res.status(400).json({
+      return res.status(200).json({
         error:
           "We were unable to find a valid token. Your token my have expired. Please Generate another",
       });
@@ -193,12 +194,12 @@ export const verify = async (req, res) => {
     User.findOne({ _id: token.userId }, (err, user) => {
       if (!user)
         return res
-          .status(400)
+          .status(200)
           .json({ error: "We were unable to find a user for this token." });
 
       if (user.isVerified)
         return res
-          .status(400)
+          .status(200)
           .json({ message: "This user has already been verified." });
 
       // Verify and save the user
@@ -349,7 +350,8 @@ async function sendVerificationEmail(user, req, res) {
     let subject = "Account Verification";
     let to = user.email;
     let from = process.env.FROM_EMAIL;
-    let link = "http://" + req.headers.host + "/users/verify/" + token.token;
+    //let link = "http://" + req.headers.host + "/verify/" + token.token;
+    let link = "http://localhost:3000/verify/" + token.token;
     let html = `<p>Hi ${user.email}<p><br><p>Please click on the following <a href="${link}">link</a> to verify your account.</p> 
                   <br><p>If you did not request this, please ignore this email.</p>`;
 

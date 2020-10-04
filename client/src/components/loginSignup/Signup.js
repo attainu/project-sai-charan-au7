@@ -3,7 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import AuthService from "../../Services/authService";
 
@@ -49,6 +49,7 @@ const vpassword = (value) => {
 function Signup(props) {
   const form = useRef();
   const checkBtn = useRef();
+  const history = useHistory();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -90,7 +91,7 @@ function Signup(props) {
     );
     console.log(result);
     if (checkBtn.current.context._errors.length === 0 && result.data.email) {
-      props.history.push("/profile");
+      history.push("/profile");
       window.location.reload();
       setMessage(result.data.message);
       setSuccessful(true);

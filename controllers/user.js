@@ -1,5 +1,5 @@
-import Post from "../models/post";
-import User from "../models/user";
+import Post from "../models/post.js";
+import User from "../models/user.js";
 
 export const getUserById = (req, res) => {
   User.findOne({ _id: req.params.id })
@@ -113,6 +113,18 @@ export const search = (req, res) => {
     .select("_id fullname username pic")
     .then((user) => {
       res.json({ user });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const getFollowers = (req, res) => {
+  User.findOne({ _id: req.user._id })
+    .populate("followers", "_id username fullname pic banner")
+    .sort({ username: "asc" })
+    .then((followers) => {
+      res.json({ followers });
     })
     .catch((err) => {
       console.log(err);

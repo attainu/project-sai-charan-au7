@@ -12,7 +12,6 @@ export default (req, res, next) => {
       .json({ error: "you must be logged in to access this page" });
   }
   const token = authorization.replace("Bearer ", "");
-  console.log(token);
   verify(token, JWT_KEY, (err, payload) => {
     if (err) {
       return res

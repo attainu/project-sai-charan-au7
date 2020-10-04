@@ -1,4 +1,6 @@
 import Post from "../models/post.js";
+import { uploader } from "../utils/index.js";
+import { cloudinary } from "../config/cloudinary.js";
 
 export const allposts = (req, res) => {
   Post.find()
@@ -26,20 +28,28 @@ export const followingposts = (req, res) => {
     });
 };
 
-export const createpost = (req, res) => {
+export const createpost = async (req, res) => {
+  console.log("create Post BE----", req.body.pic);
   const { body, pic } = req.body;
+  const data = {
+    body: body,
+    media: "",
+    postedBy: req.user,
+  };
   if (!body && !pic) {
     return res.status(422).json({ error: "please write something first" });
   }
+  if (pic) {
+    const result = await cloudinary.uploader.upload(pic);
+    data.media = result;
+  }
   req.user.password = undefined;
-  const post = new Post({
-    body: body,
-    media: pic,
-    postedBy: req.user,
-  });
+
+  const post = new Post(data);
   post
     .save()
     .then((result) => {
+      console.log(result);
       res.json({ post: result });
     })
     .catch((err) => {
@@ -75,9 +85,9 @@ export const like = (req, res) => {
     .populate("comments.postedBy", "_id username fullname pic banner")
     .exec((err, result) => {
       if (err) {
-        res.status(422).json({ error: err });
+        res.status(400).json({ error: err });
       } else {
-        res.json(result);
+        res.status(200).json(result);
       }
     });
 };
@@ -104,6 +114,7 @@ export const unlike = (req, res) => {
 };
 
 export const comment = (req, res) => {
+  console.log("server like", req);
   const comments = {
     text: req.body.text,
     postedBy: req.user._id,

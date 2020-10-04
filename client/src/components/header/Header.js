@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Header.css";
 import SearchIcon from "@material-ui/icons/Search";
 import HomeIcon from "@material-ui/icons/Home";
 import { Avatar, IconButton } from "@material-ui/core";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AuthService from "../../Services/authService";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import ChatIcon from "@material-ui/icons/Chat";
 
 function Header() {
   //const [user, setUser] = useState();
@@ -31,11 +32,28 @@ function Header() {
         <>
           <div className="header__center">
             <div className="header__option header__option--action">
-              <HomeIcon fontSize="large" />
+              <Link to="/feed">
+                <HomeIcon fontSize="large" />
+              </Link>
             </div>
             <div className="header__input">
               <SearchIcon />
               <input placeholder="Search" type="text" />
+            </div>
+            <div className="header__option ">
+              <Link to="/chat">
+                <ChatIcon fontSize="large" />
+              </Link>
+            </div>
+            <div className="header__option">
+              <Link to="">
+                <i
+                  className="material-icons"
+                  style={{ fontWeight: "900", fontSize: "large" }}
+                >
+                  # Tags
+                </i>
+              </Link>
             </div>
           </div>
           <div className="header__right">

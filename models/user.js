@@ -120,4 +120,4 @@ UserSchema.methods.generateVerificationToken = function () {
   return new Token(payload);
 };
 
-export default mongoose.model("Users", UserSchema);
+export default mongoose.model("User", UserSchema);
