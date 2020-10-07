@@ -1,74 +1,57 @@
-import React from "react";
-import "./Header.css";
-import SearchIcon from "@material-ui/icons/Search";
-import HomeIcon from "@material-ui/icons/Home";
-import { Avatar, IconButton } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
+import { CodeSharp, Home, People, Search } from "@material-ui/icons";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import AuthService from "../../Services/authService";
+import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
-import ChatIcon from "@material-ui/icons/Chat";
-
+import "../header/Header.css";
+import { UserContext } from "../../App";
+import user from "../../Services/authService.js";
 function Header() {
-  //const [user, setUser] = useState();
-  const user = AuthService.getCurrentUser();
+  const state = user.getCurrentUser();
+
   const history = useHistory();
   const handlelogout = () => {
-    AuthService.logout();
+    user.logout();
     history.push("/joinus");
     window.location.reload();
   };
   return (
-    <div className="header">
-      <div className="header__left">
-        {/*<img
-          src="https://i.pinimg.com/originals/0a/93/cc/0a93cc6ea46e59c7d83bc84fb002b92c.jpg"
-          alt=""
-        />*/}
-        <Link to="/">
-          <h3>Logo</h3>
-        </Link>
-      </div>
-      {user ? (
+    <div className="topnav" id="myTopnav">
+      {state ? (
         <>
-          <div className="header__center">
-            <div className="header__option header__option--action">
-              <Link to="/feed">
-                <HomeIcon fontSize="large" />
-              </Link>
-            </div>
-            <div className="header__input">
-              <SearchIcon />
-              <input placeholder="Search" type="text" />
-            </div>
-            <div className="header__option ">
-              <Link to="/chat">
-                <ChatIcon fontSize="large" />
-              </Link>
-            </div>
-            <div className="header__option">
-              <Link to="">
-                <i
-                  className="material-icons"
-                  style={{ fontWeight: "900", fontSize: "large" }}
-                >
-                  # Tags
-                </i>
-              </Link>
-            </div>
-          </div>
-          <div className="header__right">
-            <div className="header__info">
-              <Avatar src="" />
-              <h4>sai</h4>
-            </div>
+          <Link to="/feed">
+            <IconButton>
+              <Home fontSize="large" style={{ color: "black" }} />
+            </IconButton>
+          </Link>
+
+          <Link to="/explore">
+            <IconButton>
+              <Search fontSize="large" style={{ color: "black" }} />
+            </IconButton>
+          </Link>
+          <Link to={`/friends/${state ? state.user._id : ""}`}>
+            <IconButton>
+              <People fontSize="large" style={{ color: "black" }} />
+            </IconButton>
+          </Link>
+
+          <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+          </a>
+
+          <div className="header__logout">
             <IconButton onClick={handlelogout}>
-              <ExitToAppIcon />
+              <ExitToAppIcon fontSize="large" style={{ color: "black" }} />
             </IconButton>
           </div>
         </>
       ) : (
-        <div className="header__right">
-          <Link to="/joinus">Loign / Signup</Link>
+        <div>
+          <img
+            src="https://res.cloudinary.com/saisricharan/image/upload/v1602106247/logo_yahlz7.png"
+            style={{ width: "10vw", height: "15vh" }}
+          />
         </div>
       )}
     </div>

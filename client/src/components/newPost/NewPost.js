@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./NewPost.css";
 import { Avatar } from "@material-ui/core";
 import authHeader from "../../Services/authHeader";
 import axios from "axios";
@@ -11,7 +10,9 @@ function NewPost() {
   };
   const [fileInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] = useState("");
+  const [body, setBody] = useState("");
   const [selectedFile, setSelectedFile] = useState();
+  console.log(body);
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
     previewFile(file);
@@ -46,14 +47,14 @@ function NewPost() {
     await axios
       .post(
         "http://localhost:5000/post/createpost",
-        JSON.stringify({ pic: base64EncodedImage }),
+        JSON.stringify({ pic: base64EncodedImage, body: body }),
 
         {
           headers: header,
         }
       )
       .then((result) => {
-        console.log("result");
+        console.log(result.data);
       })
       .catch((err) => {
         console.log(err);
@@ -75,16 +76,30 @@ function NewPost() {
   return (
     <div className="messageSender">
       <div className="messageSender__top">
-        <Avatar />
         <form encType="multipart/form-data" onSubmit={handleSubmitFile}>
           <input
+            className="w3-input w3-border w3-light-grey"
+            type="text"
+            placeholder="Enter your text here!!!"
+            name="body"
+            onChange={(e) => {
+              setBody(e.target.value);
+            }}
+          ></input>
+
+          <input
+            className="w3-input w3-border w3-light-grey"
             id="fileInput"
             type="file"
             name="image"
             onChange={handleFileInputChange}
             value={fileInputState}
-          />
-          <button type="submit">Submit</button>
+          ></input>
+
+          <br />
+          <button type="submit" className="w3-button w3-theme">
+             Post
+          </button>
         </form>
         {previewSource && (
           <img

@@ -25,31 +25,33 @@ function LoignSignup(props) {
   }, []);
 
   return (
-    <div>
-      <div className="container" id="container">
-        <div className="form-container sign-up-container">
-          <Signup />
-        </div>
-        <div className="form-container sign-in-container">
-          <Login />
-        </div>
-        <div class="overlay-container">
-          <div class="overlay">
-            <div class="overlay-panel overlay-left">
-              <h1>Welcome Back!</h1>
-              <p>
-                To keep connected with us please login with your personal info
-              </p>
-              <button class="ghost" id="signIn">
-                Sign In
-              </button>
-            </div>
-            <div class="overlay-panel overlay-right">
-              <h1>Hello, Friend!</h1>
-              <p>Enter your personal details and start journey with us</p>
-              <button class="ghost" id="signUp">
-                Sign Up
-              </button>
+    <div className="center">
+      <div className="w3-col m7">
+        <div className="container" id="container">
+          <div className="form-container sign-up-container">
+            <Signup />
+          </div>
+          <div className="form-container sign-in-container">
+            <Login />
+          </div>
+          <div class="overlay-container">
+            <div class="overlay">
+              <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>
+                  To keep connected with us please login with your personal info
+                </p>
+                <button class="ghost" id="signIn">
+                  Sign In
+                </button>
+              </div>
+              <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and start journey with us</p>
+                <button class="ghost" id="signUp">
+                  Sign Up
+                </button>
+              </div>
             </div>
           </div>
         </div>
