@@ -74,3 +74,53 @@ POST: to submit data to server
 PUT: To write some data to server
 DELETE : To delete something from server
 
+6) How DNS Works?
+The user logs onto their Internet Service Provider (ISP) to use the Internet.
+The user opens up a web browser (Firefox, Chrome, Internet Explorer, Safari, etc.) and types a URL into the address bar. For example, perhaps the user types in https://www.google.com/
+The computer then asks for the ISP’s DNS servers for the specific IP address for www.google.com/.
+Once the DNS server that holds this specific IP address for www.google.com/ is found, the DNS server responds with the appropriate IP address and the user’s computer then gives this address to the user’s browser.
+The browser opens a connection to the server using the IP address provided and retrieves the page from the site requested, in this case for www.google.com/.
+The browser displays the requested page on the computer screen.
+
+7) Explain CDN and HOW it works. Does it use some caching technique?
+A CDN is a network of computers that delivers content.
+More specifically, it’s a bunch of servers geographically positioned between the origin server of some web content, and the user requesting it, all with the purpose of delivering the content faster by reducing latency.
+CDN also uses Caching
+CDN(Content Delivery Network) is also used as a cache which sits between origin servers and clients. CDNs are used to cache static files like HTML, CSS, JavaScript, image, video, etc.
+
+8) Differentiate between SQL and NO-SQL database?
+SQL:
+1. RELATIONAL DATABASE MANAGEMENT SYSTEM (RDBMS)
+2. These databases have fixed or static or predefined schema
+3. These databases are not suited for hierarchical data storage.
+4. These databases are best suited for complex queries.
+5. Verticlly Scalable
+
+NOSQL:
+1. Non-relational or distributed database system.
+2. They have have dynamic schema
+3. These databases are best suited for hierarchical data storage.
+4. These databases are not so good for complex queries.
+5. Horizontally scalable
+
+9) Explain Producer-Consumer problem
+In computing, the producer–consumer problem(also known as the bounded-buffer problem) is a classic example of a multi-process synchronization problem.The problem describes two processes, the producer and the consumer, who share a common, fixed-size buffer used as a queue. The producer's job is to generate data, put it into the buffer, and start again. At the same time, the consumer is consuming the data (i.e., removing it from the buffer), one piece at a time. The problem is to make sure that the producer won't try to add data into the buffer if it's full and that the consumer won't try to remove data from an empty buffer.
+
+The solution for the producer is to either go to sleep or discard data if the buffer is full. The next time the consumer removes an item from the buffer, it notifies the producer, who starts to fill the buffer again. In the same way, the consumer can go to sleep if it finds the buffer empty. The next time the producer puts data into the buffer, it wakes up the sleeping consumer. The solution can be reached by means of inter-process communication, typically using semaphores. An inadequate solution could result in a deadlock where both processes are waiting to be awakened. The problem can also be generalized to have multiple producers and consumers.
+
+10) Differentiate between normalization and denormalization. 
+Normalization:
+1. In normalization, Non-redundancy and consistency data are stored in set schema.
+2. In normalization, Data redundancy and inconsistency is reduced.
+3. Data integrity is maintained in normalization.
+4. In normalization, redundancy is reduced or eliminated.
+5. Number of tables in normalization is increased.
+6. Normalization optimize the uses of disk spaces.
+
+DeNormalization:
+1. In denormalization, data are combined to execute the query quickly.
+2. In denormalization, redundancy is added for quick execution of queries.
+3. Data integrity is not maintained in denormalization.
+4. In denormalization redundancy is added instead of reduction or elimination of redundancy.
+5. Denormalization, Number of tables in decreased.
+6. Denormalization do not optimize the disk spaces.
